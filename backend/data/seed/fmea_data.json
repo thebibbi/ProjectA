@@ -1,0 +1,262 @@
+{
+  "components": [
+    {
+      "id": "C-INV-001",
+      "name": "Traction Inverter",
+      "description": "Three-phase IGBT inverter for motor control",
+      "component_type": "hardware",
+      "supplier": "Infineon",
+      "part_number": "HybridPACK-2",
+      "version": "Rev C"
+    },
+    {
+      "id": "C-MCU-001",
+      "name": "Motor Control Unit",
+      "description": "Real-time microcontroller for torque vector control",
+      "component_type": "hardware",
+      "supplier": "NXP",
+      "part_number": "S32K344",
+      "version": "Rev A"
+    },
+    {
+      "id": "C-GD-001",
+      "name": "IGBT Gate Driver",
+      "description": "Isolated gate driver for high-side and low-side IGBTs",
+      "component_type": "hardware",
+      "supplier": "Texas Instruments",
+      "part_number": "UCC21750",
+      "version": "Rev B"
+    },
+    {
+      "id": "C-RES-001",
+      "name": "Resolver Interface",
+      "description": "Motor position and speed sensing interface",
+      "component_type": "hardware",
+      "supplier": "Analog Devices",
+      "part_number": "AD2S1210",
+      "version": "Rev D"
+    },
+    {
+      "id": "C-DC-001",
+      "name": "DC Link Capacitor Bank",
+      "description": "High voltage film capacitors for DC bus filtering",
+      "component_type": "hardware",
+      "supplier": "TDK",
+      "part_number": "B32778G",
+      "version": "N/A"
+    },
+    {
+      "id": "C-COOL-001",
+      "name": "Liquid Cooling System",
+      "description": "Water-glycol cooling for inverter thermal management",
+      "component_type": "system",
+      "supplier": "Valeo",
+      "part_number": "TCS-300",
+      "version": "Rev A"
+    },
+    {
+      "id": "C-SW-FOC",
+      "name": "FOC Control Software",
+      "description": "Field-oriented control algorithm implementation",
+      "component_type": "software",
+      "supplier": "Internal",
+      "part_number": "SW-FOC-v2.3",
+      "version": "2.3.1"
+    },
+    {
+      "id": "C-SW-DIAG",
+      "name": "Diagnostics Software",
+      "description": "Fault detection and diagnostic routines",
+      "component_type": "software",
+      "supplier": "Internal",
+      "part_number": "SW-DIAG-v1.5",
+      "version": "1.5.2"
+    }
+  ],
+  "failure_modes": [
+    {
+      "id": "FM-001",
+      "description": "IGBT short circuit failure",
+      "category": "electrical",
+      "probability": 0.0001,
+      "detection_mechanism": "Desaturation detection, overcurrent protection"
+    },
+    {
+      "id": "FM-002",
+      "description": "Gate driver power supply failure",
+      "category": "electrical",
+      "probability": 0.0005,
+      "detection_mechanism": "UVLO monitoring, watchdog timeout"
+    },
+    {
+      "id": "FM-003",
+      "description": "Resolver winding open circuit",
+      "category": "electrical",
+      "probability": 0.0003,
+      "detection_mechanism": "Signal amplitude monitoring, plausibility check"
+    },
+    {
+      "id": "FM-004",
+      "description": "DC link capacitor degradation",
+      "category": "aging",
+      "probability": 0.002,
+      "detection_mechanism": "ESR monitoring, ripple current measurement"
+    },
+    {
+      "id": "FM-005",
+      "description": "Coolant pump mechanical failure",
+      "category": "mechanical",
+      "probability": 0.001,
+      "detection_mechanism": "Flow sensor, temperature rise detection"
+    },
+    {
+      "id": "FM-006",
+      "description": "MCU software corruption (bit flip)",
+      "category": "software",
+      "probability": 0.0002,
+      "detection_mechanism": "CRC check, memory ECC, lockstep cores"
+    },
+    {
+      "id": "FM-007",
+      "description": "Current sensor offset drift",
+      "category": "calibration",
+      "probability": 0.0008,
+      "detection_mechanism": "Phase current sum check, plausibility monitoring"
+    },
+    {
+      "id": "FM-008",
+      "description": "Thermal interface material degradation",
+      "category": "aging",
+      "probability": 0.0015,
+      "detection_mechanism": "Junction temperature estimation, thermal model"
+    }
+  ],
+  "fmea_entries": [
+    {
+      "id": "FMEA-001",
+      "function_description": "IGBT switching for motor phase control",
+      "potential_failure": "Short circuit between collector and emitter",
+      "effect": "Uncontrolled motor torque, potential fire hazard",
+      "cause": "Die cracking, bond wire liftoff, cosmic ray",
+      "current_controls": "Desaturation detection, gate interlock, fuse",
+      "severity": 10,
+      "occurrence": 2,
+      "detection": 3,
+      "rpn": 60,
+      "recommended_action": "Implement redundant desaturation detection, reduce switching frequency stress"
+    },
+    {
+      "id": "FMEA-002",
+      "function_description": "Gate driver power supply provision",
+      "potential_failure": "Loss of gate drive voltage",
+      "effect": "IGBT fails to turn on, loss of motor torque",
+      "cause": "Transformer failure, rectifier diode failure",
+      "current_controls": "UVLO detection, watchdog monitoring",
+      "severity": 8,
+      "occurrence": 3,
+      "detection": 4,
+      "rpn": 96,
+      "recommended_action": "Add redundant power supply path, improve UVLO threshold margin"
+    },
+    {
+      "id": "FMEA-003",
+      "function_description": "Motor rotor position sensing",
+      "potential_failure": "Resolver winding open circuit",
+      "effect": "Loss of position feedback, uncontrolled motor operation",
+      "cause": "Wire fatigue, connector corrosion, vibration",
+      "current_controls": "Signal amplitude monitoring, backup speed estimator",
+      "severity": 9,
+      "occurrence": 2,
+      "detection": 5,
+      "rpn": 90,
+      "recommended_action": "Implement sensorless control fallback, improve connector sealing"
+    },
+    {
+      "id": "FMEA-004",
+      "function_description": "DC bus voltage filtering and energy storage",
+      "potential_failure": "Capacitor ESR increase, capacitance loss",
+      "effect": "Increased DC bus ripple, inverter shutdown",
+      "cause": "Electrolyte evaporation, electrode corrosion",
+      "current_controls": "Ripple monitoring, ESR estimation",
+      "severity": 7,
+      "occurrence": 4,
+      "detection": 4,
+      "rpn": 112,
+      "recommended_action": "Implement predictive maintenance, reduce thermal stress"
+    },
+    {
+      "id": "FMEA-005",
+      "function_description": "Inverter thermal management",
+      "potential_failure": "Coolant pump mechanical seizure",
+      "effect": "Inverter overheating, thermal shutdown",
+      "cause": "Bearing wear, impeller damage, contamination",
+      "current_controls": "Flow sensor, temperature monitoring",
+      "severity": 8,
+      "occurrence": 3,
+      "detection": 3,
+      "rpn": 72,
+      "recommended_action": "Implement redundant pump, improve filtration"
+    },
+    {
+      "id": "FMEA-006",
+      "function_description": "Torque command processing",
+      "potential_failure": "Memory corruption due to SEU",
+      "effect": "Incorrect torque output, unintended acceleration",
+      "cause": "Cosmic ray induced bit flip, EMI",
+      "current_controls": "ECC memory, CRC checks, lockstep cores",
+      "severity": 10,
+      "occurrence": 2,
+      "detection": 4,
+      "rpn": 80,
+      "recommended_action": "Increase ECC coverage, add voting mechanism"
+    },
+    {
+      "id": "FMEA-007",
+      "function_description": "Phase current measurement",
+      "potential_failure": "Current sensor offset drift",
+      "effect": "Torque ripple, efficiency loss, potential overcurrent",
+      "cause": "Temperature drift, component aging, EMI",
+      "current_controls": "Phase sum check, plausibility monitoring",
+      "severity": 6,
+      "occurrence": 4,
+      "detection": 5,
+      "rpn": 120,
+      "recommended_action": "Implement periodic recalibration, improve sensor selection"
+    },
+    {
+      "id": "FMEA-008",
+      "function_description": "Heat transfer from IGBT to coolant",
+      "potential_failure": "Thermal interface material degradation",
+      "effect": "Increased junction temperature, reduced reliability",
+      "cause": "Thermal cycling, pump-out effect, cure shrinkage",
+      "current_controls": "Junction temperature estimation, derating",
+      "severity": 7,
+      "occurrence": 5,
+      "detection": 6,
+      "rpn": 210,
+      "recommended_action": "Use improved TIM material, reduce thermal cycling"
+    }
+  ],
+  "relationships": {
+    "HAS_FAILURE_MODE": [
+      ["C-INV-001", "FM-001"],
+      ["C-GD-001", "FM-002"],
+      ["C-RES-001", "FM-003"],
+      ["C-DC-001", "FM-004"],
+      ["C-COOL-001", "FM-005"],
+      ["C-SW-FOC", "FM-006"],
+      ["C-MCU-001", "FM-007"],
+      ["C-INV-001", "FM-008"]
+    ],
+    "ANALYZED_IN": [
+      ["FM-001", "FMEA-001"],
+      ["FM-002", "FMEA-002"],
+      ["FM-003", "FMEA-003"],
+      ["FM-004", "FMEA-004"],
+      ["FM-005", "FMEA-005"],
+      ["FM-006", "FMEA-006"],
+      ["FM-007", "FMEA-007"],
+      ["FM-008", "FMEA-008"]
+    ]
+  }
+}

@@ -1,0 +1,248 @@
+{
+  "test_cases": [
+    {
+      "id": "TC-001",
+      "name": "Torque Command Verification - Discrepancy Detection",
+      "description": "Verify that torque command discrepancies are detected within 100ms",
+      "test_type": "HIL",
+      "status": "passed",
+      "pass_criteria": "Discrepancy flag set within 100ms when channels differ by >5%",
+      "coverage_level": "MC/DC",
+      "last_run": "2025-11-15T10:30:00Z",
+      "result": "PASS - Discrepancy detected in 87ms avg, safe state activated"
+    },
+    {
+      "id": "TC-002",
+      "name": "Torque Command Verification - Safe State Transition",
+      "description": "Verify safe state is entered within 2 control cycles upon discrepancy",
+      "test_type": "HIL",
+      "status": "passed",
+      "pass_criteria": "Zero torque output within 2ms (2 cycles at 1kHz)",
+      "coverage_level": "MC/DC",
+      "last_run": "2025-11-15T10:35:00Z",
+      "result": "PASS - Safe state reached in 1.8ms avg"
+    },
+    {
+      "id": "TC-003",
+      "name": "Regenerative Braking - DC Bus Monitoring",
+      "description": "Verify continuous monitoring of DC bus voltage and current during regen",
+      "test_type": "HIL",
+      "status": "passed",
+      "pass_criteria": "Voltage and current sampled every control cycle (1ms)",
+      "coverage_level": "Statement",
+      "last_run": "2025-11-15T11:00:00Z",
+      "result": "PASS - Monitoring confirmed at 1kHz rate"
+    },
+    {
+      "id": "TC-004",
+      "name": "Regenerative Braking - Friction Brake Transition",
+      "description": "Verify friction brake activation when regen capability drops",
+      "test_type": "Vehicle",
+      "status": "passed",
+      "pass_criteria": "Friction brakes engage within 200ms when regen <50%",
+      "coverage_level": "Statement",
+      "last_run": "2025-11-10T14:00:00Z",
+      "result": "PASS - Avg transition time 165ms, deceleration maintained"
+    },
+    {
+      "id": "TC-005",
+      "name": "FOC Anti-Windup - Torque Limiting",
+      "description": "Verify anti-windup prevents integrator saturation during torque limits",
+      "test_type": "MIL",
+      "status": "passed",
+      "pass_criteria": "Current controller tracking error <5% during saturation",
+      "coverage_level": "Branch",
+      "last_run": "2025-11-14T09:00:00Z",
+      "result": "PASS - Anti-windup effective, tracking error 3.2%"
+    },
+    {
+      "id": "TC-006",
+      "name": "Torque Ripple Monitoring",
+      "description": "Verify torque ripple detection and measurement accuracy",
+      "test_type": "HIL",
+      "status": "passed",
+      "pass_criteria": "Ripple measured within ±1% of actual value",
+      "coverage_level": "Statement",
+      "last_run": "2025-11-15T11:30:00Z",
+      "result": "PASS - Measurement accuracy confirmed at 0.8% error"
+    },
+    {
+      "id": "TC-007",
+      "name": "Thermal Model Validation - Junction Temperature",
+      "description": "Verify IGBT junction temperature estimation accuracy",
+      "test_type": "Lab",
+      "status": "passed",
+      "pass_criteria": "Estimated Tj within ±10°C of measured value",
+      "coverage_level": "N/A",
+      "last_run": "2025-11-08T16:00:00Z",
+      "result": "PASS - Avg error 7.3°C across operating range"
+    },
+    {
+      "id": "TC-008",
+      "name": "Thermal Protection - Inverter Shutdown",
+      "description": "Verify inverter disables at junction temperature threshold",
+      "test_type": "HIL",
+      "status": "passed",
+      "pass_criteria": "Inverter disabled within 50ms of Tj exceeding 150°C",
+      "coverage_level": "MC/DC",
+      "last_run": "2025-11-15T12:00:00Z",
+      "result": "PASS - Shutdown in 38ms, HV contactors opened"
+    },
+    {
+      "id": "TC-009",
+      "name": "Coolant Monitoring - Dual Sensor Check",
+      "description": "Verify independent coolant temperature and flow sensors",
+      "test_type": "Integration",
+      "status": "passed",
+      "pass_criteria": "Both sensors operational, plausibility check functional",
+      "coverage_level": "Statement",
+      "last_run": "2025-11-15T13:00:00Z",
+      "result": "PASS - Both sensors reading, fault detection confirmed"
+    },
+    {
+      "id": "TC-010",
+      "name": "HV Isolation Monitoring - Measurement Method",
+      "description": "Verify 1kHz AC isolation measurement implementation",
+      "test_type": "Lab",
+      "status": "passed",
+      "pass_criteria": "Isolation resistance measured with ±5% accuracy",
+      "coverage_level": "N/A",
+      "last_run": "2025-11-07T10:00:00Z",
+      "result": "PASS - Measurement accuracy 3.2% across range"
+    },
+    {
+      "id": "TC-011",
+      "name": "HV Isolation - Contactor Opening Time",
+      "description": "Verify HV contactors open within timing requirement",
+      "test_type": "Lab",
+      "status": "passed",
+      "pass_criteria": "Contactors fully open within 10ms of fault detection",
+      "coverage_level": "N/A",
+      "last_run": "2025-11-07T11:00:00Z",
+      "result": "PASS - Avg opening time 8.3ms"
+    },
+    {
+      "id": "TC-012",
+      "name": "SOC Estimation - Coulomb Counting Algorithm",
+      "description": "Verify SOC estimation using coulomb counting with voltage correction",
+      "test_type": "Vehicle",
+      "status": "passed",
+      "pass_criteria": "SOC error <5% over full discharge cycle",
+      "coverage_level": "Statement",
+      "last_run": "2025-11-05T08:00:00Z",
+      "result": "PASS - Max error 4.2% at end of discharge"
+    },
+    {
+      "id": "TC-013",
+      "name": "Battery Protection - Progressive Power Limiting",
+      "description": "Verify power reduction from 10% to 5% SOC",
+      "test_type": "Vehicle",
+      "status": "passed",
+      "pass_criteria": "Power limited progressively, vehicle remains controllable",
+      "coverage_level": "Statement",
+      "last_run": "2025-11-05T09:00:00Z",
+      "result": "PASS - Progressive limiting confirmed, safe operation"
+    },
+    {
+      "id": "TC-014",
+      "name": "Speed Calculation - Resolver Update Rate",
+      "description": "Verify vehicle speed calculation at 10ms update rate",
+      "test_type": "Dyno",
+      "status": "passed",
+      "pass_criteria": "Speed updated every 10ms with <2% error",
+      "coverage_level": "Statement",
+      "last_run": "2025-11-12T14:00:00Z",
+      "result": "PASS - 100Hz update confirmed, max error 1.5%"
+    },
+    {
+      "id": "TC-015",
+      "name": "Speed Plausibility - Multi-Sensor Check",
+      "description": "Verify speed plausibility using resolver and wheel speed sensors",
+      "test_type": "Vehicle",
+      "status": "passed",
+      "pass_criteria": "Mismatch detected when sensors differ >5%",
+      "coverage_level": "Branch",
+      "last_run": "2025-11-12T15:00:00Z",
+      "result": "PASS - Plausibility check functional, warning displayed"
+    },
+    {
+      "id": "TC-016",
+      "name": "DC Link Protection - Brake Chopper Activation",
+      "description": "Verify brake chopper activates at voltage threshold",
+      "test_type": "HIL",
+      "status": "passed",
+      "pass_criteria": "Chopper active within 5ms of Vdc reaching 430V",
+      "coverage_level": "Statement",
+      "last_run": "2025-11-15T14:00:00Z",
+      "result": "PASS - Activation in 3.2ms, voltage clamped at 432V"
+    },
+    {
+      "id": "TC-017",
+      "name": "Regen Power Limiting - Overvoltage Prevention",
+      "description": "Verify regen power limited when DC bus voltage high",
+      "test_type": "Vehicle",
+      "status": "passed",
+      "pass_criteria": "Regen power reduced progressively from 420V threshold",
+      "coverage_level": "Statement",
+      "last_run": "2025-11-10T16:00:00Z",
+      "result": "PASS - Progressive limiting confirmed on downhill test"
+    },
+    {
+      "id": "TC-018",
+      "name": "Gate Driver UVLO - Fault Detection",
+      "description": "Verify gate driver UVLO detection and safe shutdown",
+      "test_type": "HIL",
+      "status": "passed",
+      "pass_criteria": "Fault detected within 10ms, inverter disabled",
+      "coverage_level": "MC/DC",
+      "last_run": "2025-11-15T15:00:00Z",
+      "result": "PASS - UVLO detected in 6ms, safe shutdown confirmed"
+    },
+    {
+      "id": "TC-019",
+      "name": "IGBT Desaturation - Short Circuit Detection",
+      "description": "Verify IGBT short circuit detection via desaturation monitoring",
+      "test_type": "HIL",
+      "status": "passed",
+      "pass_criteria": "Desat fault detected <2µs, gate turned off <500ns",
+      "coverage_level": "Statement",
+      "last_run": "2025-11-15T15:30:00Z",
+      "result": "PASS - Detection 1.2µs, turn-off 380ns"
+    },
+    {
+      "id": "TC-020",
+      "name": "Current Sensor Plausibility - Phase Sum Check",
+      "description": "Verify phase current sum equals zero (Kirchhoff's law)",
+      "test_type": "HIL",
+      "status": "passed",
+      "pass_criteria": "Sum of 3-phase currents <5% of rated current",
+      "coverage_level": "Statement",
+      "last_run": "2025-11-15T16:00:00Z",
+      "result": "PASS - Phase sum 2.1% of rated, plausibility OK"
+    }
+  ],
+  "relationships": {
+    "VERIFIED_BY": [
+      ["TSR-015", "TC-001"],
+      ["TSR-016", "TC-002"],
+      ["TSR-025", "TC-003"],
+      ["TSR-026", "TC-004"],
+      ["TSR-035", "TC-005"],
+      ["TSR-036", "TC-006"],
+      ["TSR-045", "TC-007"],
+      ["TSR-046", "TC-008"],
+      ["TSR-047", "TC-009"],
+      ["TSR-055", "TC-010"],
+      ["TSR-056", "TC-011"],
+      ["TSR-065", "TC-012"],
+      ["TSR-066", "TC-013"],
+      ["TSR-075", "TC-014"],
+      ["TSR-076", "TC-015"],
+      ["TSR-085", "TC-016"],
+      ["TSR-086", "TC-017"],
+      ["C-GD-001", "TC-018"],
+      ["C-INV-001", "TC-019"],
+      ["C-MCU-001", "TC-020"]
+    ]
+  }
+}
