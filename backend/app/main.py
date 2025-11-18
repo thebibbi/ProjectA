@@ -14,6 +14,7 @@ from fastapi.responses import JSONResponse
 
 from app.core.config import get_settings
 from app.db.neo4j_driver import close_neo4j_driver, get_neo4j_driver
+from app.api import import_router, analytics_router
 
 # Configure logging
 logging.basicConfig(
@@ -104,6 +105,10 @@ app.add_middleware(
     allow_methods=settings.cors_allow_methods,
     allow_headers=settings.cors_allow_headers,
 )
+
+# Register API routers
+app.include_router(import_router)
+app.include_router(analytics_router)
 
 
 # ============================================================================
@@ -279,14 +284,24 @@ async def root() -> JSONResponse:
                     "stats": "/health/stats",
                 },
                 "import": {
-                    "hara": "/import/hara (Coming soon)",
-                    "fmea": "/import/fmea (Coming soon)",
-                    "requirements": "/import/requirements (Coming soon)",
-                    "tests": "/import/tests (Coming soon)",
+                    "hara": "POST /import/hara",
+                    "fmea": "POST /import/fmea",
+                    "requirements": "POST /import/requirements",
+                    "tests": "POST /import/tests",
+                    "defects": "POST /import/defects",
                 },
                 "analytics": {
-                    "hazard_coverage": "/analytics/hazard-coverage (Coming soon)",
-                    "impact": "/analytics/impact/component/{id} (Coming soon)",
+                    "hazard_coverage": "GET /analytics/coverage/hazard/{id}",
+                    "all_hazards_coverage": "GET /analytics/coverage/hazards",
+                    "coverage_statistics": "GET /analytics/coverage/statistics",
+                    "component_impact": "GET /analytics/impact/component/{id}",
+                    "all_components_impact": "GET /analytics/impact/components",
+                    "traceability_chain": "GET /analytics/traceability/hazard/{id}",
+                    "requirement_traceability": "GET /analytics/traceability/requirement/{id}",
+                    "statistics": "GET /analytics/statistics",
+                    "search_hazards": "GET /analytics/search/hazards?q={query}",
+                    "search_components": "GET /analytics/search/components?q={query}",
+                    "filter_hazards": "GET /analytics/filter/hazards?asil={level}",
                 },
             },
         }
