@@ -1,0 +1,187 @@
+{
+  "hazards": [
+    {
+      "id": "H-001",
+      "description": "Unintended acceleration due to torque command failure",
+      "asil": "D",
+      "severity": 3,
+      "exposure": 4,
+      "controllability": 3
+    },
+    {
+      "id": "H-002",
+      "description": "Loss of braking torque during regenerative braking",
+      "asil": "D",
+      "severity": 3,
+      "exposure": 4,
+      "controllability": 3
+    },
+    {
+      "id": "H-003",
+      "description": "Uncontrolled motor torque oscillation causing vehicle instability",
+      "asil": "C",
+      "severity": 3,
+      "exposure": 3,
+      "controllability": 2
+    },
+    {
+      "id": "H-004",
+      "description": "Inverter thermal runaway leading to fire",
+      "asil": "D",
+      "severity": 3,
+      "exposure": 4,
+      "controllability": 3
+    },
+    {
+      "id": "H-005",
+      "description": "High voltage isolation failure causing electric shock",
+      "asil": "D",
+      "severity": 3,
+      "exposure": 3,
+      "controllability": 3
+    },
+    {
+      "id": "H-006",
+      "description": "Battery over-discharge due to power management failure",
+      "asil": "B",
+      "severity": 2,
+      "exposure": 3,
+      "controllability": 2
+    },
+    {
+      "id": "H-007",
+      "description": "Motor speed sensor failure leading to incorrect vehicle speed display",
+      "asil": "A",
+      "severity": 1,
+      "exposure": 4,
+      "controllability": 1
+    },
+    {
+      "id": "H-008",
+      "description": "DC link overvoltage damaging inverter components",
+      "asil": "C",
+      "severity": 2,
+      "exposure": 3,
+      "controllability": 2
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "SC-HIGHWAY",
+      "name": "Highway Driving",
+      "description": "High-speed highway operation (80-120 km/h)",
+      "operating_mode": "normal",
+      "environment": "highway"
+    },
+    {
+      "id": "SC-URBAN",
+      "name": "Urban Stop-and-Go",
+      "description": "Frequent acceleration and braking in city traffic",
+      "operating_mode": "normal",
+      "environment": "urban"
+    },
+    {
+      "id": "SC-REGEN",
+      "name": "Regenerative Braking",
+      "description": "Energy recovery during deceleration",
+      "operating_mode": "regen_braking",
+      "environment": "mixed"
+    },
+    {
+      "id": "SC-CLIMB",
+      "name": "Hill Climbing",
+      "description": "High torque demand on steep incline",
+      "operating_mode": "high_load",
+      "environment": "mountain"
+    },
+    {
+      "id": "SC-CHARGE",
+      "name": "DC Fast Charging",
+      "description": "High power charging at public station",
+      "operating_mode": "charging",
+      "environment": "charging_station"
+    }
+  ],
+  "safety_goals": [
+    {
+      "id": "SG-001",
+      "description": "Prevent unintended acceleration by ensuring torque command integrity",
+      "asil": "D",
+      "safe_state": "Zero torque output, enable friction brakes",
+      "fault_tolerance_time": 100
+    },
+    {
+      "id": "SG-002",
+      "description": "Maintain regenerative braking capability to prevent loss of deceleration",
+      "asil": "D",
+      "safe_state": "Transition to friction brakes",
+      "fault_tolerance_time": 200
+    },
+    {
+      "id": "SG-003",
+      "description": "Prevent motor torque oscillations that could destabilize the vehicle",
+      "asil": "C",
+      "safe_state": "Reduce torque to minimum stable value",
+      "fault_tolerance_time": 50
+    },
+    {
+      "id": "SG-004",
+      "description": "Prevent inverter thermal damage and fire hazard",
+      "asil": "D",
+      "safe_state": "Disable inverter, disconnect HV supply",
+      "fault_tolerance_time": 500
+    },
+    {
+      "id": "SG-005",
+      "description": "Maintain high voltage isolation to prevent electric shock",
+      "asil": "D",
+      "safe_state": "Disconnect HV battery, activate discharge circuit",
+      "fault_tolerance_time": 100
+    },
+    {
+      "id": "SG-006",
+      "description": "Prevent battery over-discharge that could damage cells",
+      "asil": "B",
+      "safe_state": "Limit power consumption, enter limp mode",
+      "fault_tolerance_time": 5000
+    },
+    {
+      "id": "SG-007",
+      "description": "Provide accurate vehicle speed information to driver",
+      "asil": "A",
+      "safe_state": "Display warning, use backup sensor",
+      "fault_tolerance_time": 1000
+    },
+    {
+      "id": "SG-008",
+      "description": "Prevent DC link overvoltage damage to inverter",
+      "asil": "C",
+      "safe_state": "Activate brake chopper, reduce regen",
+      "fault_tolerance_time": 20
+    }
+  ],
+  "relationships": {
+    "OCCURS_IN": [
+      ["H-001", "SC-HIGHWAY"],
+      ["H-001", "SC-URBAN"],
+      ["H-002", "SC-REGEN"],
+      ["H-003", "SC-HIGHWAY"],
+      ["H-004", "SC-CLIMB"],
+      ["H-004", "SC-CHARGE"],
+      ["H-005", "SC-HIGHWAY"],
+      ["H-006", "SC-HIGHWAY"],
+      ["H-007", "SC-HIGHWAY"],
+      ["H-008", "SC-REGEN"]
+    ],
+    "MITIGATED_BY": [
+      ["H-001", "SG-001"],
+      ["H-002", "SG-002"],
+      ["H-003", "SG-003"],
+      ["H-004", "SG-004"],
+      ["H-005", "SG-005"],
+      ["H-006", "SG-006"],
+      ["H-007", "SG-007"],
+      ["H-008", "SG-008"]
+    ]
+  }
+}

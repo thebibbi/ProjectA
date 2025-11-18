@@ -1,0 +1,296 @@
+{
+  "fsrs": [
+    {
+      "id": "FSR-010",
+      "text": "The system shall prevent unintended acceleration by verifying torque commands",
+      "asil": "D",
+      "requirement_type": "safety_mechanism",
+      "status": "approved"
+    },
+    {
+      "id": "FSR-011",
+      "text": "The system shall detect and react to torque command discrepancies within 100ms",
+      "asil": "D",
+      "requirement_type": "timing",
+      "status": "approved"
+    },
+    {
+      "id": "FSR-020",
+      "text": "The system shall maintain regenerative braking capability or safely transition to friction brakes",
+      "asil": "D",
+      "requirement_type": "functional",
+      "status": "approved"
+    },
+    {
+      "id": "FSR-021",
+      "text": "The system shall detect regenerative braking failures within 200ms",
+      "asil": "D",
+      "requirement_type": "timing",
+      "status": "approved"
+    },
+    {
+      "id": "FSR-030",
+      "text": "The system shall prevent motor torque oscillations exceeding 5% of commanded torque",
+      "asil": "C",
+      "requirement_type": "performance",
+      "status": "approved"
+    },
+    {
+      "id": "FSR-040",
+      "text": "The system shall prevent inverter thermal runaway by monitoring temperature and limiting power",
+      "asil": "D",
+      "requirement_type": "safety_mechanism",
+      "status": "approved"
+    },
+    {
+      "id": "FSR-041",
+      "text": "The system shall disable inverter and disconnect HV supply if thermal limits are exceeded",
+      "asil": "D",
+      "requirement_type": "safety_mechanism",
+      "status": "approved"
+    },
+    {
+      "id": "FSR-050",
+      "text": "The system shall maintain HV isolation resistance above 100Ω/V",
+      "asil": "D",
+      "requirement_type": "safety_mechanism",
+      "status": "approved"
+    },
+    {
+      "id": "FSR-051",
+      "text": "The system shall disconnect HV battery if isolation fault is detected",
+      "asil": "D",
+      "requirement_type": "safety_mechanism",
+      "status": "approved"
+    },
+    {
+      "id": "FSR-060",
+      "text": "The system shall prevent battery discharge below 10% SOC",
+      "asil": "B",
+      "requirement_type": "functional",
+      "status": "approved"
+    },
+    {
+      "id": "FSR-070",
+      "text": "The system shall provide accurate vehicle speed display with ±2% error",
+      "asil": "A",
+      "requirement_type": "performance",
+      "status": "approved"
+    },
+    {
+      "id": "FSR-080",
+      "text": "The system shall prevent DC link overvoltage above 450V",
+      "asil": "C",
+      "requirement_type": "safety_mechanism",
+      "status": "approved"
+    }
+  ],
+  "tsrs": [
+    {
+      "id": "TSR-015",
+      "text": "Torque command shall be verified by independent calculation channel with diverse algorithm",
+      "asil": "D",
+      "asil_decomposition": null,
+      "requirement_type": "architecture",
+      "status": "approved",
+      "verification_method": "Code review, HIL testing"
+    },
+    {
+      "id": "TSR-016",
+      "text": "Torque command discrepancy shall trigger safe state within 2 control cycles",
+      "asil": "D",
+      "asil_decomposition": null,
+      "requirement_type": "implementation",
+      "status": "approved",
+      "verification_method": "HIL fault injection testing"
+    },
+    {
+      "id": "TSR-025",
+      "text": "Regenerative braking controller shall monitor DC bus voltage and current continuously",
+      "asil": "D",
+      "asil_decomposition": null,
+      "requirement_type": "implementation",
+      "status": "approved",
+      "verification_method": "Unit test, integration test"
+    },
+    {
+      "id": "TSR-026",
+      "text": "Braking coordinator shall activate friction brakes if regen capability drops below 50%",
+      "asil": "D",
+      "asil_decomposition": null,
+      "requirement_type": "implementation",
+      "status": "approved",
+      "verification_method": "Vehicle testing, HIL testing"
+    },
+    {
+      "id": "TSR-035",
+      "text": "FOC controller shall implement anti-windup and rate limiting on torque command",
+      "asil": "C",
+      "asil_decomposition": null,
+      "requirement_type": "implementation",
+      "status": "approved",
+      "verification_method": "MIL testing, code review"
+    },
+    {
+      "id": "TSR-036",
+      "text": "Torque ripple shall be measured every 100ms using phase current monitoring",
+      "asil": "C",
+      "asil_decomposition": null,
+      "requirement_type": "implementation",
+      "status": "approved",
+      "verification_method": "HIL testing, vehicle validation"
+    },
+    {
+      "id": "TSR-045",
+      "text": "IGBT junction temperature shall be estimated using thermal model with 10°C accuracy",
+      "asil": "D",
+      "asil_decomposition": "D(D)",
+      "requirement_type": "implementation",
+      "status": "approved",
+      "verification_method": "Thermal calibration, validation testing"
+    },
+    {
+      "id": "TSR-046",
+      "text": "Inverter shall be disabled if estimated junction temperature exceeds 150°C",
+      "asil": "D",
+      "asil_decomposition": "D(D)",
+      "requirement_type": "implementation",
+      "status": "approved",
+      "verification_method": "Fault injection testing"
+    },
+    {
+      "id": "TSR-047",
+      "text": "Coolant temperature and flow shall be monitored with independent sensors",
+      "asil": "D",
+      "asil_decomposition": "D(B+B)",
+      "requirement_type": "architecture",
+      "status": "approved",
+      "verification_method": "Hardware review, integration test"
+    },
+    {
+      "id": "TSR-055",
+      "text": "HV isolation monitoring shall use 1kHz AC measurement method",
+      "asil": "D",
+      "asil_decomposition": null,
+      "requirement_type": "implementation",
+      "status": "approved",
+      "verification_method": "Isolation tester calibration"
+    },
+    {
+      "id": "TSR-056",
+      "text": "HV contactors shall open within 10ms upon isolation fault detection",
+      "asil": "D",
+      "asil_decomposition": null,
+      "requirement_type": "timing",
+      "status": "approved",
+      "verification_method": "Contactor timing test"
+    },
+    {
+      "id": "TSR-065",
+      "text": "SOC estimation shall use coulomb counting with voltage-based correction",
+      "asil": "B",
+      "asil_decomposition": null,
+      "requirement_type": "implementation",
+      "status": "approved",
+      "verification_method": "Algorithm validation, vehicle testing"
+    },
+    {
+      "id": "TSR-066",
+      "text": "Power limitation shall be applied progressively from 10% to 5% SOC",
+      "asil": "B",
+      "asil_decomposition": null,
+      "requirement_type": "implementation",
+      "status": "approved",
+      "verification_method": "Vehicle testing"
+    },
+    {
+      "id": "TSR-075",
+      "text": "Vehicle speed shall be calculated from resolver position with 10ms update rate",
+      "asil": "A",
+      "asil_decomposition": null,
+      "requirement_type": "implementation",
+      "status": "approved",
+      "verification_method": "Dyno testing, GPS validation"
+    },
+    {
+      "id": "TSR-076",
+      "text": "Speed sensor plausibility check shall compare resolver and wheel speed sensors",
+      "asil": "A",
+      "asil_decomposition": null,
+      "requirement_type": "safety_mechanism",
+      "status": "approved",
+      "verification_method": "Fault injection testing"
+    },
+    {
+      "id": "TSR-085",
+      "text": "Brake chopper shall activate at 430V DC bus voltage threshold",
+      "asil": "C",
+      "asil_decomposition": null,
+      "requirement_type": "implementation",
+      "status": "approved",
+      "verification_method": "Power supply testing, HIL"
+    },
+    {
+      "id": "TSR-086",
+      "text": "Regenerative braking power shall be limited if DC bus exceeds 420V",
+      "asil": "C",
+      "asil_decomposition": null,
+      "requirement_type": "implementation",
+      "status": "approved",
+      "verification_method": "Vehicle testing on downhill"
+    }
+  ],
+  "relationships": {
+    "REFINED_TO": [
+      ["SG-001", "FSR-010"],
+      ["SG-001", "FSR-011"],
+      ["FSR-010", "TSR-015"],
+      ["FSR-011", "TSR-016"],
+      ["SG-002", "FSR-020"],
+      ["SG-002", "FSR-021"],
+      ["FSR-020", "TSR-025"],
+      ["FSR-020", "TSR-026"],
+      ["FSR-021", "TSR-026"],
+      ["SG-003", "FSR-030"],
+      ["FSR-030", "TSR-035"],
+      ["FSR-030", "TSR-036"],
+      ["SG-004", "FSR-040"],
+      ["SG-004", "FSR-041"],
+      ["FSR-040", "TSR-045"],
+      ["FSR-040", "TSR-047"],
+      ["FSR-041", "TSR-046"],
+      ["SG-005", "FSR-050"],
+      ["SG-005", "FSR-051"],
+      ["FSR-050", "TSR-055"],
+      ["FSR-051", "TSR-056"],
+      ["SG-006", "FSR-060"],
+      ["FSR-060", "TSR-065"],
+      ["FSR-060", "TSR-066"],
+      ["SG-007", "FSR-070"],
+      ["FSR-070", "TSR-075"],
+      ["FSR-070", "TSR-076"],
+      ["SG-008", "FSR-080"],
+      ["FSR-080", "TSR-085"],
+      ["FSR-080", "TSR-086"]
+    ],
+    "ALLOCATED_TO": [
+      ["TSR-015", "C-SW-FOC"],
+      ["TSR-016", "C-SW-FOC"],
+      ["TSR-025", "C-SW-FOC"],
+      ["TSR-026", "C-SW-FOC"],
+      ["TSR-035", "C-SW-FOC"],
+      ["TSR-036", "C-SW-DIAG"],
+      ["TSR-045", "C-SW-DIAG"],
+      ["TSR-046", "C-SW-DIAG"],
+      ["TSR-047", "C-COOL-001"],
+      ["TSR-055", "C-MCU-001"],
+      ["TSR-056", "C-MCU-001"],
+      ["TSR-065", "C-SW-FOC"],
+      ["TSR-066", "C-SW-FOC"],
+      ["TSR-075", "C-RES-001"],
+      ["TSR-076", "C-SW-DIAG"],
+      ["TSR-085", "C-INV-001"],
+      ["TSR-086", "C-SW-FOC"]
+    ]
+  }
+}
