@@ -10,6 +10,7 @@ from app.services.fmea_import import FMEAImportService
 from app.services.requirements_import import RequirementsImportService
 from app.services.tests_import import TestsImportService
 from app.services.defects_import import DefectsImportService
+from app.services.analytics_service import AnalyticsService
 
 __all__ = [
     "BaseService",
@@ -18,4 +19,5 @@ __all__ = [
     "RequirementsImportService",
     "TestsImportService",
     "DefectsImportService",
+    "AnalyticsService",
 ]
